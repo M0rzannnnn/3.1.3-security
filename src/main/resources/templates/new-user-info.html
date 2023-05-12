@@ -9,7 +9,7 @@
 
 <br>
 
-<form th:method = "POST" th:action = "@{/users}" th:object= "${user}">
+<form th:method = "POST" th:action = "@{/admin/}" th:object= "${user}">
     <label for = "name"> Enter name:</label>
     <input type = "text" th:field = "*{name}" id = "name"/>
     <br>
@@ -23,6 +23,9 @@
     <input type = "submit" value = "OK"/>
 
 </form>
+
+<input align="right" type = "button" value = "logout"
+       onclick = "window.location.href = '/logout'"/>
 
 </body>
 </html>
