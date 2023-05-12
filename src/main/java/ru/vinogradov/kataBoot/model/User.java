@@ -1,8 +1,12 @@
 package ru.vinogradov.kataBoot.model;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -11,6 +15,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "name")
     private String name;
 
@@ -19,6 +31,13 @@ public class User {
 
     @Column(name = "age")
     private Long age;
+
+
+    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable (name = "users_roles",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
     public User() {}
 
@@ -38,6 +57,10 @@ public class User {
 
     public Long getAge() {
         return age;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
     public Long getId() {
